@@ -7,12 +7,11 @@ namespace Scrips.PBuilding
     {
         private Camera _mainCamera;
         private BuildingTypeListSO _buildingTypeList;
-        private BuildingTypeSO _buildingType;
+        private BuildingTypeSO _activeBuildingType;
 
         private void Awake()
         {
             _buildingTypeList = Resources.Load<BuildingTypeListSO>(nameof(BuildingTypeListSO));
-            _buildingType = _buildingTypeList.Items[BuildingTypeId.WoodHarvester];
         }
 
         private void Start()
@@ -24,22 +23,22 @@ namespace Scrips.PBuilding
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                _buildingType = _buildingTypeList.Items[BuildingTypeId.WoodHarvester];
+                SetBuildingType(BuildingTypeId.WoodHarvester);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                _buildingType = _buildingTypeList.Items[BuildingTypeId.StoneHarvester];
+                SetBuildingType(BuildingTypeId.StoneHarvester);
             }
 
             if (Input.GetKeyDown(KeyCode.G))
             {
-                _buildingType = _buildingTypeList.Items[BuildingTypeId.GoldHarvester];
+                SetBuildingType(BuildingTypeId.GoldHarvester);
             }
 
             if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                Instantiate(_buildingType.Prefab, GetMouseWorldPosition(), Quaternion.identity);
+                Instantiate(_activeBuildingType.Prefab, GetMouseWorldPosition(), Quaternion.identity);
             }
         }
 
@@ -52,7 +51,7 @@ namespace Scrips.PBuilding
 
         public void SetBuildingType(BuildingTypeId buildingTypeId)
         {
-            _buildingType = _buildingTypeList.Items[buildingTypeId];
+            _activeBuildingType = _buildingTypeList.Items[buildingTypeId];
         }
     }
 }
