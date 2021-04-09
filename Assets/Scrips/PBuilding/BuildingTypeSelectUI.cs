@@ -14,7 +14,6 @@ public class BuildingTypeSelectUI : MonoBehaviour
     [SerializeField] private float btnHeight = 100;
     [SerializeField] private float btnWidth = 100;
     [SerializeField] [NotNull] private BuildingManager buildingManager;
-    [SerializeField] private BuildingTypeId _startingBuildingTypeSelected;
     private Dictionary<BuildingTypeId, Transform> _buildingSelectorUIDictionary;
 
     private void Awake()
@@ -25,10 +24,10 @@ public class BuildingTypeSelectUI : MonoBehaviour
             RectTransform buildingSelectorBtn = Instantiate(buildingSelectorTemplate, transform);
             SetPositionOfButton(index, buildingSelectorBtn);
             buildingSelectorBtn.Find("Image").GetComponent<Image>().sprite = resource.Value.Icon;
-            buildingSelectorBtn.GetComponent<Button>().onClick.AddListener(() => SetActiveButton(resource.Value.Id));
+            buildingSelectorBtn.GetComponent<Button>().onClick.AddListener(() => SelectBuildingToBuild(resource.Value.Id));
+            buildingSelectorBtn.Find("SelectedFrame/CancelSelectionBtn").GetComponent<Button>().onClick.AddListener(() => UnselectBuildingToBuild(resource.Value.Id));
             return new KeyValuePair<BuildingTypeId, Transform>(resource.Key, buildingSelectorBtn);
         }).ToDictionary(row => row.Key, row => row.Value);
-        SetActiveButton(_startingBuildingTypeSelected);
     }
 
     private void SetPositionOfButton(int index, RectTransform buildingSelectorBtn)
@@ -37,12 +36,18 @@ public class BuildingTypeSelectUI : MonoBehaviour
         buildingSelectorBtn.anchoredPosition = new Vector2(btnWidth / 2 + leftMarginPxl + (marginBetweenButtonsPxl + btnWidth) * index, bottomMarginPxl + btnHeight / 2);
     }
 
-    private void SetActiveButton(BuildingTypeId activeBuildingTypeId)
+    private void SelectBuildingToBuild(BuildingTypeId activeBuildingTypeId)
     {
-        buildingManager.SetBuildingType(activeBuildingTypeId);
+        buildingManager.SetActiveBuildingType(activeBuildingTypeId);
         foreach ((BuildingTypeId buildingTypeId, Transform button) in _buildingSelectorUIDictionary)
         {
             button.Find("SelectedFrame").gameObject.SetActive(buildingTypeId.Equals(activeBuildingTypeId));
         }
+    }
+    
+    private void UnselectBuildingToBuild(BuildingTypeId activeBuildingTypeId)
+    {
+        buildingManager.UnsetActiveBuildingType();
+        _buildingSelectorUIDictionary[activeBuildingTypeId].Find("SelectedFrame").gameObject.SetActive(false);
     }
 }

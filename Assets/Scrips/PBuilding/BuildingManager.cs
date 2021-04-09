@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace Scrips.PBuilding
@@ -8,6 +9,19 @@ namespace Scrips.PBuilding
         private Camera _mainCamera;
         private BuildingTypeListSO _buildingTypeList;
         private BuildingTypeSO _activeBuildingType;
+        private bool HasSelectedBuildingToBuild => !(_activeBuildingType is null);
+
+        public static event EventHandler<OnActiveBuildingTypeChangedEvent> OnActiveBuildingTypeChanged;
+
+        public class OnActiveBuildingTypeChangedEvent : EventArgs
+        {
+            public readonly BuildingTypeSO activeBuildingType;
+
+            public OnActiveBuildingTypeChangedEvent(BuildingTypeSO activeBuildingType)
+            {
+                this.activeBuildingType = activeBuildingType;
+            }
+        }
 
         private void Awake()
         {
@@ -19,39 +33,40 @@ namespace Scrips.PBuilding
             _mainCamera = Camera.main;
         }
 
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.W))
             {
-                SetBuildingType(BuildingTypeId.WoodHarvester);
+                SetActiveBuildingType(BuildingTypeId.WoodHarvester);
             }
 
             if (Input.GetKeyDown(KeyCode.S))
             {
-                SetBuildingType(BuildingTypeId.StoneHarvester);
+                SetActiveBuildingType(BuildingTypeId.StoneHarvester);
             }
 
             if (Input.GetKeyDown(KeyCode.G))
             {
-                SetBuildingType(BuildingTypeId.GoldHarvester);
+                SetActiveBuildingType(BuildingTypeId.GoldHarvester);
             }
 
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (HasSelectedBuildingToBuild && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                Instantiate(_activeBuildingType.Prefab, GetMouseWorldPosition(), Quaternion.identity);
+                Instantiate(_activeBuildingType.Prefab, UIUtils.GetMouseWorldPosition(), Quaternion.identity);
             }
         }
 
-        private Vector3 GetMouseWorldPosition()
-        {
-            Vector3 mwp = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
-            mwp.z = 0;
-            return mwp;
-        }
-
-        public void SetBuildingType(BuildingTypeId buildingTypeId)
+        public void SetActiveBuildingType(BuildingTypeId buildingTypeId)
         {
             _activeBuildingType = _buildingTypeList.Items[buildingTypeId];
+            OnActiveBuildingTypeChanged?.Invoke(this, new OnActiveBuildingTypeChangedEvent(_activeBuildingType));
+        }
+
+        public void UnsetActiveBuildingType()
+        {
+            _activeBuildingType = null;
+            OnActiveBuildingTypeChanged?.Invoke(this, new OnActiveBuildingTypeChangedEvent(null));
         }
     }
 }
