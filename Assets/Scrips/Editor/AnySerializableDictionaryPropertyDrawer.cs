@@ -1,6 +1,7 @@
-﻿using UnityEditor;
+﻿using Scrips.PResource.PGenerator;
+using UnityEditor;
 
-namespace Scrips.PResource.PGenerator.Editor
+namespace Scrips.Editor
 {
     [CustomPropertyDrawer(typeof(ResourceGeneratorDataDictionary))]
     public class AnySerializableDictionaryPropertyDrawer : SerializableDictionaryPropertyDrawer

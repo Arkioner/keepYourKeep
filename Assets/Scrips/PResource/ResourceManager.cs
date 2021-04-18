@@ -28,6 +28,7 @@ namespace Scrips.PResource
         public static void AddResource(ResourceTypeId resourceTypeId, int amount)
         {
             _instance._resourceAmountDictionary[resourceTypeId] += amount;
+            //TODO: May include the resources updated in the event?
             ResourceAmountChanged?.Invoke(_instance, EventArgs.Empty);
         }
 

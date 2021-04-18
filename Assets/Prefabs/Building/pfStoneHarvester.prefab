@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3589255841736441532}
-  - component: {fileID: -5483501673927468613}
-  - component: {fileID: 7121943037289172064}
+  - component: {fileID: -66247911382887460}
+  - component: {fileID: -2112022716432522367}
+  - component: {fileID: -4197449892386486031}
   m_Layer: 0
-  m_Name: pfWoodHarvester
+  m_Name: pfStoneHarvester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +34,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-5483501673927468613
+--- !u!114 &-66247911382887460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -45,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4dfb30937118fc45972c85d0d1e4d30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buildingTypeSO: {fileID: 11400000, guid: 18fc110ea761b0948a26c1d2de28d267, type: 2}
---- !u!114 &7121943037289172064
+  buildingTypeSO: {fileID: 11400000, guid: da34d70c912a4b24e911e176d8b51ec1, type: 2}
+--- !u!114 &-2112022716432522367
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -58,6 +59,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8600cf7b9e6db5e4b96e672d1fd83ccc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-4197449892386486031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3517734329355596235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 255e7532912dc404ea2bf10b73789ddd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  staticEntity: 1
 --- !u!1 &7123165971616880015
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,7 +98,7 @@ Transform:
   m_GameObject: {fileID: 7123165971616880015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99999994, y: 1.0000001, z: 1}
   m_Children: []
   m_Father: {fileID: 3589255841736441532}
   m_RootOrder: 0
