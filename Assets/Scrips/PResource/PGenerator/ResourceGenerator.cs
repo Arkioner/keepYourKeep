@@ -33,6 +33,7 @@ namespace Scrips.PResource.PGenerator
             _resourceAmountGeneratedXTick = Physics2D.OverlapCircleAll(transform.position, 5f)
                 .ToList()
                 .Select(item => item.GetComponent<ResourceNode>())
+                .Where(item => item != null)
                 .SelectMany(resourceNode => resourceNode.AvailableResources.Intersect(_resourceGeneratorDataHolder.GetResourceIds))
                 .GroupBy(id => id, id => id)
                 .ToDictionary(

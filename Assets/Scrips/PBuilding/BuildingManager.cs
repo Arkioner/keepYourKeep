@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -53,7 +54,11 @@ namespace Scrips.PBuilding
 
             if (HasSelectedBuildingToBuild && Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
             {
-                Instantiate(_activeBuildingType.Prefab, UIUtils.GetMouseWorldPosition(), Quaternion.identity);
+                Vector3 mouseWorldPosition = UIUtils.GetMouseWorldPosition();
+                if (CanBuildHere(_activeBuildingType, mouseWorldPosition))
+                {
+                    Instantiate(_activeBuildingType.Prefab, mouseWorldPosition, Quaternion.identity);
+                }
             }
         }
 
@@ -67,6 +72,12 @@ namespace Scrips.PBuilding
         {
             _activeBuildingType = null;
             OnActiveBuildingTypeChanged?.Invoke(this, new OnActiveBuildingTypeChangedEvent(null));
+        }
+
+        private bool CanBuildHere(BuildingTypeSO buildingType, Vector3 position)
+        {
+            BoxCollider2D boxCollider2D = buildingType.Prefab.GetComponent<BoxCollider2D>();
+            return Physics2D.OverlapBoxAll(position + (Vector3) boxCollider2D.offset, boxCollider2D.size, 0).Length == 0;
         }
     }
 }

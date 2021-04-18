@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 6489814578582050358}
   - component: {fileID: 2704560025984618176}
   - component: {fileID: 9178035131945299688}
+  - component: {fileID: -1118847016100195170}
   m_Layer: 0
-  m_Name: GoldResourceNode
+  m_Name: pfGoldResourceNode
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,6 +77,32 @@ CircleCollider2D:
   m_Offset: {x: -0.05, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!61 &-1118847016100195170
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270378484136657655}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &6788625525579398857
 GameObject:
   m_ObjectHideFlags: 0
